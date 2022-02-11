@@ -291,6 +291,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取使用时下载的等待更新资源数量。
+        /// </summary>
+        public int UpdateWaitingWhilePlayingCount
+        {
+            get
+            {
+                throw new NotSupportedException("UpdateWaitingWhilePlayingCount");
+            }
+        }
+
+        /// <summary>
         /// 获取候选更新资源数量。
         /// </summary>
         public int UpdateCandidateCount
@@ -298,17 +309,6 @@ namespace UnityGameFramework.Runtime
             get
             {
                 throw new NotSupportedException("UpdateCandidateCount");
-            }
-        }
-
-        /// <summary>
-        /// 获取正在更新资源个数。
-        /// </summary>
-        public int UpdatingCount
-        {
-            get
-            {
-                throw new NotSupportedException("UpdatingCount");
             }
         }
 
@@ -490,6 +490,26 @@ namespace UnityGameFramework.Runtime
 #pragma warning disable 0067, 0414
 
         /// <summary>
+        /// 资源校验开始事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceVerifyStartEventArgs> ResourceVerifyStart = null;
+
+        /// <summary>
+        /// 资源校验成功事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceVerifySuccessEventArgs> ResourceVerifySuccess = null;
+
+        /// <summary>
+        /// 资源校验失败事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceVerifyFailureEventArgs> ResourceVerifyFailure = null;
+
+        /// <summary>
+        /// 资源应用开始事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceApplyStartEventArgs> ResourceApplyStart = null;
+
+        /// <summary>
         /// 资源应用成功事件。
         /// </summary>
         public event EventHandler<GameFramework.Resource.ResourceApplySuccessEventArgs> ResourceApplySuccess = null;
@@ -518,6 +538,11 @@ namespace UnityGameFramework.Runtime
         /// 资源更新失败事件。
         /// </summary>
         public event EventHandler<GameFramework.Resource.ResourceUpdateFailureEventArgs> ResourceUpdateFailure = null;
+
+        /// <summary>
+        /// 资源更新全部完成事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceUpdateAllCompleteEventArgs> ResourceUpdateAllComplete = null;
 
 #pragma warning restore 0067, 0414
 
@@ -694,7 +719,7 @@ namespace UnityGameFramework.Runtime
         {
             if (string.IsNullOrEmpty(readOnlyPath))
             {
-                Log.Error("Readonly path is invalid.");
+                Log.Error("Read-only path is invalid.");
                 return;
             }
 
@@ -819,6 +844,16 @@ namespace UnityGameFramework.Runtime
         public void UpdateVersionList(int versionListLength, int versionListHashCode, int versionListCompressedLength, int versionListCompressedHashCode, UpdateVersionListCallbacks updateVersionListCallbacks)
         {
             throw new NotSupportedException("UpdateVersionList");
+        }
+
+        /// <summary>
+        /// 使用可更新模式并校验资源。
+        /// </summary>
+        /// <param name="verifyResourceLengthPerFrame">每帧至少校验资源的大小，以字节为单位。</param>
+        /// <param name="verifyResourcesCompleteCallback">使用可更新模式并校验资源完成时的回调函数。</param>
+        public void VerifyResources(int verifyResourceLengthPerFrame, VerifyResourcesCompleteCallback verifyResourcesCompleteCallback)
+        {
+            throw new NotSupportedException("VerifyResources");
         }
 
         /// <summary>
